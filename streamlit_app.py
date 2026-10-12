@@ -80,8 +80,15 @@ st.markdown(
                       font: 800 1.2rem 'Plus Jakarta Sans', sans-serif; padding: .6rem .9rem; }
       .muted { color: #858ca4; font-size: .9rem; }
       .issue-rank { color: #8d80dd; font-weight: 800; font-size: .83rem; }
+      .steps-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+      .step-card { padding: 1.25rem; background: white; border: 1px solid #e8e9f2;
+                   border-radius: 16px; min-height: 155px; }
+      .step-card span { color: #7668df; font-size: .75rem; font-weight: 800; }
+      .step-card h3 { margin: .6rem 0 .35rem; font-size: 1rem; }
+      .step-card p { color: #858ca4; font-size: .87rem; line-height: 1.5; margin: 0; }
       .footnote { color: #9299ac; font-size: .8rem; margin-top: 1.5rem; }
-      @media (max-width: 640px) { .hero { padding: 2rem 1.35rem; } .block-container { padding-top: 1rem; } }
+      @media (max-width: 640px) { .hero { padding: 2rem 1.35rem; } .block-container { padding-top: 1rem; }
+                                  .steps-grid { grid-template-columns: 1fr; } .step-card { min-height: auto; } }
     </style>
     """,
     unsafe_allow_html=True,
@@ -170,6 +177,24 @@ if "result" in st.session_state:
         *(f'- {issue["title"]} ({issue["url"]})' for issue in matches),
     ])
     st.download_button("Download summary", summary, file_name="issue-triage-summary.txt")
+
+st.markdown('<div class="section-kicker">BEHIND THE SCENES</div>', unsafe_allow_html=True)
+st.header("How it works")
+st.markdown(
+    '<p class="section-note">The same Python model powers this public demo and the local full-stack app.</p>',
+    unsafe_allow_html=True,
+)
+st.markdown(
+    '<div class="steps-grid">'
+    '<div class="step-card"><span>01</span><h3>Describe</h3>'
+    '<p>Enter a title and optional context for a GitHub issue.</p></div>'
+    '<div class="step-card"><span>02</span><h3>Classify</h3>'
+    '<p>A trained model suggests Bug, Docs, or Enhancement.</p></div>'
+    '<div class="step-card"><span>03</span><h3>Compare</h3>'
+    '<p>Sentence embeddings rank related issues for human review.</p></div>'
+    '</div>',
+    unsafe_allow_html=True,
+)
 
 st.markdown(
     '<div class="footnote">Powered by TF-IDF, sentence embeddings and logistic regression. '
