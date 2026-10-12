@@ -1,20 +1,31 @@
 # Issue Triage Assistant
 
-An issue triage demo for pandas GitHub issues. Enter a title and optional description to get a suggested `Bug`, `Docs`, or `Enhancement` label and five related issues to review.
+An AI-assisted issue triage project built from 1,000 pandas GitHub issues. Enter an issue title and optional description to get a suggested `Bug`, `Docs`, or `Enhancement` label plus five related reports for human review.
 
-**[Try the live demo](https://issue-triage-sreszx22aynsgym2mtkwes.streamlit.app/)** · [View the source code](https://github.com/Jyotshana111/issue-triage)
+**[Try the live Streamlit demo](https://issue-triage-sreszx22aynsgym2mtkwes.streamlit.app/)**
 
-![Local React interface showing a Bug suggestion and related issues](docs/demo.jpg)
+In the demo, choose an example or enter your own issue, select **Analyze issue**, and review the suggested label and related issues. The similarity scores describe text closeness, not the probability that reports are duplicates.
 
-The project has three parts:
+The repository also contains a local full-stack application with three parts:
 
 1. **Python and FastAPI** collect issue data, train a classifier, search issue embeddings, and expose `/analyze` on port 8000.
 2. **Java and Spring Boot** expose `/api/analyze` on port 8080 and forward requests to Python.
 3. **React and Vite** provide the browser interface. Vite proxies `/api` requests to Java.
 
+```mermaid
+flowchart LR
+    Input[Issue title and description] --> Streamlit[Public Streamlit demo]
+    Input --> React[Local React interface]
+    React --> Spring[Spring Boot API]
+    Spring --> FastAPI[FastAPI]
+    Streamlit --> Model[Python classifier and similarity search]
+    FastAPI --> Model
+    Model --> Result[Suggested label and related issues]
+```
+
 ## Public demo
 
-The repository also includes `streamlit_app.py`, a [public demo](https://issue-triage-sreszx22aynsgym2mtkwes.streamlit.app/) that runs the **same saved classifier and sentence-embedding search** directly in Python. It has its own Streamlit interface so it can run on Streamlit Community Cloud without deploying three servers. The React, Java, and FastAPI application remains the full-stack version of the project.
+The public app in `streamlit_app.py` runs the **same saved classifier and sentence-embedding search** directly in Python. Its Streamlit interface allows visitors to use the model without starting the three local servers. The React, Java, and FastAPI application remains the full-stack version of the project.
 
 The first analysis may take longer while the sentence-transformer downloads. Community Cloud may put an idle app to sleep; a visitor can wake it from the sleep page. The indexed data and model are included in this repository, so deployment does not need to call the GitHub issue API.
 
