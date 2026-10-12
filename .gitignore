@@ -1,6 +1,6 @@
 .venv/
 .venv312/
-issue_embeddings.npz
 __pycache__/
 *.py[cod]
 .DS_Store
+.streamlit/secrets.toml
