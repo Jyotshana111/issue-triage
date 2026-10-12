@@ -2,7 +2,9 @@
 
 An issue triage demo for pandas GitHub issues. Enter a title and optional description to get a suggested `Bug`, `Docs`, or `Enhancement` label and five related issues to review.
 
-![Issue Triage Assistant showing a Bug suggestion and related issues](docs/demo.jpg)
+**[Try the live demo](https://issue-triage-sreszx22aynsgym2mtkwes.streamlit.app/)** · [View the source code](https://github.com/Jyotshana111/issue-triage)
+
+![Local React interface showing a Bug suggestion and related issues](docs/demo.jpg)
 
 The project has three parts:
 
@@ -10,17 +12,9 @@ The project has three parts:
 2. **Java and Spring Boot** expose `/api/analyze` on port 8080 and forward requests to Python.
 3. **React and Vite** provide the browser interface. Vite proxies `/api` requests to Java.
 
-## Public demo with no card
+## Public demo
 
-The repository also includes `streamlit_app.py`, a public demo that runs the **same saved classifier and sentence-embedding search** directly in Python. It has its own Streamlit interface so it can run on Streamlit Community Cloud without deploying three servers. The React, Java, and FastAPI application remains the full-stack version of the project.
-
-To publish the demo:
-
-1. Go to [Streamlit Community Cloud](https://share.streamlit.io/) and sign in with GitHub.
-2. Choose **Create app**, then **Yup, I have an app**.
-3. Select `Jyotshana111/issue-triage`, branch `main`, and entrypoint `streamlit_app.py`.
-4. In **Advanced settings**, choose Python **3.12**. Choose an available app URL, then click **Deploy**.
-5. Open the resulting `*.streamlit.app` link and run a sample issue. Add that link to your résumé and GitHub repository description.
+The repository also includes `streamlit_app.py`, a [public demo](https://issue-triage-sreszx22aynsgym2mtkwes.streamlit.app/) that runs the **same saved classifier and sentence-embedding search** directly in Python. It has its own Streamlit interface so it can run on Streamlit Community Cloud without deploying three servers. The React, Java, and FastAPI application remains the full-stack version of the project.
 
 The first analysis may take longer while the sentence-transformer downloads. Community Cloud may put an idle app to sleep; a visitor can wake it from the sleep page. The indexed data and model are included in this repository, so deployment does not need to call the GitHub issue API.
 
